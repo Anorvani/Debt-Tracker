@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "express": "^4.18.1",
+    "msw": "^0.41.0",
     "mysql2": "^2.3.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -18,8 +19,11 @@
     "start": "node server/index.js",
     "build:dev": "webpack --config ./webpack.config.js -w",
     "start:dev": "npx nodemon server/index.js -w server -w database",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "test-overview": "jest test.jsx",
+    "react-dev": "webpack -w"
+
   },
   "eslintConfig": {
     "extends": [
@@ -41,9 +45,15 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
+    "@babel/plugin-transform-runtime": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
+    "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
+    "jest": "^28.1.0",
+    "jest-dom": "^4.0.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "react-test-renderer": "^18.1.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   }

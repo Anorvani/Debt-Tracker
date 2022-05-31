@@ -15,8 +15,8 @@ const getAllDebts = function(callback) {
 
 
 const postDebt = function(newDebt, callback) {
-  let queryStr = 'INSERT INTO debts (creditor, firstName, lastName, minPaymentPercentage, balance) VALUES (?, ?, ?, ?, ?)'
-  let queryArgs = [newDebt.creditor, newDebt.firstName, newDebt.lastName, newDebt.minPaymentPercentage, newDebt.balance]
+  let queryStr = 'INSERT INTO debts (creditorName, firstName, lastName, minPaymentPercentage, balance) VALUES (?, ?, ?, ?, ?)'
+  let queryArgs = [newDebt.creditorName, newDebt.firstName, newDebt.lastName, newDebt.minPaymentPercentage, newDebt.balance]
   connection.query(queryStr, queryArgs, (err, data) => {
     if(err) {
       callback(err);

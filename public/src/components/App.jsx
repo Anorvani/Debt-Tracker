@@ -1,66 +1,59 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import DebtsList from './DebtsList.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      debts: [],
-      isSelected: [],
-      total: 0,
-      checkRowCount: 0
-    }
+const App = () => {
+  let [debts, setDebts] = useState([]);
+  let [isSelected, setIsSelected] = useState([]);
+  let [totalBalanceChecked, setTotalBalanceChecked] = useState(0);
+  let [checkRowCount, setCheckRowCount] = useState(0);
+  let [count, setCount] =useState(0)
 
-    this.getDebts = this.getDebts.bind(this);
-    this.addDebts = this.addDebts.bind(this);
-    this.deleteDebts = this.deleteDebts.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
-   }
+  useEffect(() => {
+    getDebts();
+  }, [count]);
 
-  componentDidMount() {
-    this.getDebts();
-
-  }
-
-  getDebts() {
+  const getDebts = () => {
     axios.get('/api/debts')
       .then((results) => {
-        this.setState({debts: results.data});
-        this.setState({isSelected: new Array(this.state.debts.length).fill(false)})
-
+        setDebts(results.data);
+        setCount(results.data.length);
+        if (isSelected.length === 0) {
+          setIsSelected(new Array(results.data.length).fill(false))
+        }
       })
       .catch(err => console.error(err))
   }
 
-  addDebts () {
-    axios.post('/api/debts', {creditor: "Wells Fargo", firstName: "Bob", lastName: "Baker", minPaymentPercentage: 1.50, balance: 500})
+  const addDebts = ()  => {
+    axios.post('/api/debts', {creditorName: "Wells Fargo", firstName: "Bob", lastName: "Baker", minPaymentPercentage: 1.50, balance: 500})
       .then(() => {
-        this.getDebts()
-        this.setState({isSelected: [...false]})
+        setIsSelected([...isSelected, false])
+        setCount(count + 1)
       })
   }
 
-  deleteDebts () {
-    if (this.state.isSelected[this.state.isSelected.length - 1] === true) {
-      this.setState({total: this.state.total - this.state.debts[this.state.debts.length - 1].balance})
-      this.setState({checkRowCount: this.state.checkRowCount - 1})
+  const deleteDebts = () => {
+    if (isSelected[isSelected.length - 1] === true) {
+      setTotalBalanceChecked(totalBalanceChecked - debts[debts.length - 1].balance)
+      setCheckRowCount(checkRowCount - 1)
     }
+    setIsSelected(isSelected.slice(0, isSelected.length - 1))
     axios.delete('/api/debts')
       .then(() => {
-        this.getDebts()
+        setCount(count - 1)
       })
   }
 
-  handleOnChange(position) {
-    const updatedIsSelected = this.state.isSelected.map((item, index) => index === position ? !item : item)
+  const handleOnChange = (position) => {
+    const updatedIsSelected = isSelected.map((item, index) => index === position ? !item : item)
 
-    this.setState({isSelected: updatedIsSelected})
+    setIsSelected(updatedIsSelected)
 
     const totalBalance = updatedIsSelected.reduce((sum, currentState, index) => {
       if (currentState === true) {
 
-        return sum + Number(this.state.debts[index].balance)
+        return sum + Number(debts[index].balance)
       }
       return sum
     }, 0)
@@ -72,26 +65,26 @@ class App extends React.Component {
       return count;
     }, 0)
 
-    this.setState({total: totalBalance})
-    this.setState({checkRowCount: totalCheckedRows})
+    setTotalBalanceChecked(totalBalance)
+    setCheckRowCount(totalCheckedRows)
   }
 
-  render() {
-    return (
-      <div>
-        <h1>Debt Calculator</h1>
-        <DebtsList debts={this.state.debts} isSelected={this.state.isSelected} handleOnChange={this.handleOnChange}/>
-        <button onClick ={this.addDebts}>Add Debt</button>
-        <button onClick={this.deleteDebts} >Delete Debt</button>
-        <div>Total: {this.state.total}</div>
-        <div>Total Row Count: {this.state.debts.length}</div>
-        <div>Check Row Count: {this.state.checkRowCount}</div>
-      </div>
-    )
+  if (debts.length === 0) {
+    return (<h2>Loading...</h2>)
   }
+  return (
+    <div>
+      <h1>Debt Calculator</h1>
+      <h3>Debts</h3>
+      <DebtsList debts={debts} isSelected={isSelected} handleOnChange={handleOnChange}/>
+      <button data-testid="addDebt" onClick ={addDebts}>Add Debt</button>
+      <button onClick={deleteDebts} >Delete Debt</button>
+      <div>Total: {totalBalanceChecked}</div>
+      <div data-testid="rowCount" >Total Row Count: {count}</div>
+      <div data-testid="checkedRowCount">Check Row Count: {checkRowCount}</div>
+    </div>
+  )
 };
-
-
 
 export default App;
 
