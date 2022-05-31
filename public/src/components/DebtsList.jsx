@@ -5,12 +5,12 @@ import Debts from './Debts.jsx';
 const DebtsList = ({debts, isSelected, handleOnChange}) => {
   return (
   <div className="txn">
-    <h3>Debts</h3>
+    
 
-    <div className="txn-table">
+    <div role="debtTable" className="txn-table">
       <div className="txn-header txn-row">
         <div className="txn-data"><input type="checkbox"></input></div>
-        <div className="txn-data">Creditor</div>
+        <div className="txn-data">Creditor Name</div>
         <div className="txn-data">First Name</div>
         <div className="txn-data">Last Name</div>
         <div className="txn-data">Min Pay%</div>

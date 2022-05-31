@@ -9,6 +9,11 @@ h1 {
   color: #00a07b;
 }
 
+h3 {
+  margin: 20px;
+  color: black;
+}
+
 .app {
   display: flex;
   flex-flow: row;
