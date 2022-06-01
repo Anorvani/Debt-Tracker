@@ -6,7 +6,7 @@ body {
 
 h1 {
   margin: 20px;
-  color: #00a07b;
+  color: mediumblue;
 }
 
 h3 {
@@ -24,10 +24,6 @@ h3 {
   margin: 20px;
 }
 
-.category {
-  width: 20%;
-  margin: 20px;
-}
 
 .txn-table {
   display: flex;
@@ -79,24 +75,7 @@ h3 {
   white-space: nowrap;
   border-bottom: 1px solid #d0d0d0;
 }
-
-
-.category-list {
-  background-color: #00a07b;
-  color: white;
-  margin-top: 50px;
-}
-
-.category-data {
-  padding: 0.5em;
-  word-break: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0px;
-  white-space: nowrap;
-}
-
-
+/*
 select {
   float:right;
   padding:8px 12px;
@@ -104,9 +83,9 @@ select {
   background:0;color:#5a5a6e;
   cursor:pointer;
   transition:all .3s;
-}
+} */
 
-input {
+/* input {
   width:100%;
   padding:10px;
   box-sizing:border-box;
@@ -121,27 +100,42 @@ input {
 
 input:focus {
   border-bottom:2px solid #00a07b;
-}
+} */
 
 button {
-  float:left;
+  /*float:left;*/
   padding:8px 12px;
   margin:20px 0px 20px 0px;
-  border:2px solid #00a07b;
-  background:0;
-  color:black;
+  border:2px solid mediumblue;
+  background:mediumblue;
+  color:#fff;
   cursor:pointer;
   transition:all .3s;
 }
 
 button:hover {
-  background:#00a07b;
-  color:#fff;
-  border: 2px solid #00a07b;
+  background: 0;
+  color:black;
+  border: 2px solid mediumblue;
 }
 
-.category-form {
-  margin-top: 2px;
+.totalChecked {
   display: flex;
-  flex-flow: column;
+  width: 80%;
+  justify-content: flex-end;
+  background-color: lightblue;
+  font-weight: 900;
 }
+
+.total {
+  margin-right: auto;
+}
+
+.rowInfo {
+  display: flex;
+  gap: 20px;
+  font-weight: 900;
+}
+
+
+

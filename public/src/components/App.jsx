@@ -77,11 +77,19 @@ const App = () => {
       <h1>Debt Calculator</h1>
       <h3>Debts</h3>
       <DebtsList debts={debts} isSelected={isSelected} handleOnChange={handleOnChange}/>
+      <div>
       <button data-testid="addDebt" onClick ={addDebts}>Add Debt</button>
       <button onClick={deleteDebts} >Delete Debt</button>
-      <div>Total: {totalBalanceChecked}</div>
-      <div data-testid="rowCount" >Total Row Count: {count}</div>
-      <div data-testid="checkedRowCount">Check Row Count: {checkRowCount}</div>
+      </div>
+
+      <div className="totalChecked">
+        <div className="total">Total: </div>
+        <div className="totalAmount">{totalBalanceChecked}</div>
+      </div>
+      <div className="rowInfo">
+        <div data-testid="rowCount" >Total Row Count: {count}</div>
+        <div data-testid="checkedRowCount">Check Row Count: {checkRowCount}</div>
+      </div>
     </div>
   )
 };

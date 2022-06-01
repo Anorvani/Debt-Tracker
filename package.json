@@ -17,13 +17,9 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "build:dev": "webpack --config ./webpack.config.js -w",
-    "start:dev": "npx nodemon server/index.js -w server -w database",
     "test": "jest",
     "eject": "react-scripts eject",
-    "test-overview": "jest test.jsx",
     "react-dev": "webpack -w"
-
   },
   "eslintConfig": {
     "extends": [
